@@ -9,4 +9,4 @@ class CityForm(forms.ModelForm):
 
     class Meta:
         model = City
-        fields = ('name', )
+        fields = ('name',)

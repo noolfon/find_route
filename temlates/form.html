@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-md-4">
+       <form action="{{ action }}" method="post">
+            {% csrf_token %}
+                {% for error in form.name.errors %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                              {{error}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            <br>
+            <button type="submit" class="btn btn-outline-primary">{{ button }}</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- {{ form.as_p }} -->
