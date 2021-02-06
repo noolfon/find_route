@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Поиск маршрута</title>
+{% endblock %}
+
+{% block content %}
+<h1>Поиск маршрута</h1>
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        {% if routes %}
+            <h3>Маршрут{% if routes|length != 1 %}ы{% endif %} из г. {{ cities.from_city }} в г.{{ cities.to_city }}</h3>
+            {% for route in routes %}
+                <h5>Время в пути {{ route.total_time }}</h5>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Список поездов по этмоу маршруту</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for train in route.trains %}
+                    <tr>
+                      <th scope="row">{{ forloop.counter }}</th>
+                      <td>{{ train }}</td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+</div>
+
+{% include 'form.html' with button='Найти' %}
+
+{% endblock %}
+

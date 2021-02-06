@@ -22,7 +22,7 @@ __all__ = (
 #     return render(request, 'cities/home.html', {'cities': qs, 'form': form})
 
 class CityListView(ListView):
-    paginate_by = 2
+    paginate_by = 5
     model = City
     template_name = 'cities/home.html'
 
@@ -66,7 +66,7 @@ class CityDeleteView(DeleteView):
     template_name = 'cities/delete.html'
     success_url = reverse_lazy('cities:home')
 
+    # после переопределения этого метода не показывает страничку с подтверждением
     def get(self, request, *args, **kwargs):
         messages.success(request, 'Город успешно удален!')
-        return self.post(request, *args, **kwargs )
-
+        return self.post(request, *args, **kwargs)

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Поезд</title>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h1 class="text-center">Поезд</h1>
+                <table class="table table-striped" >
+            <thead>
+                <tr>
+                  <th scope="col">Поезд</th>
+                  <th scope="col">Откуда</th>
+                  <th scope="col">Куда</th>
+                  <th scope="col">Время в пути</th>
+                </tr>
+              </thead>
+            <tbody>
+                <tr>
+                    <td>{{ train.name }}</td>
+                    <td>{{ train.from_city }}</td>
+                    <td>{{ train.to_city }}</td>
+                    <td>{{ train.travel_time }} ч.</td>
+                </tr>
+            </tbody>
+        </table>
+            <a href="{% url 'trains:home' %}">
+                <button type="button" class="btn btn-light">Назат к списку</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+

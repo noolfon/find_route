@@ -1,30 +1,40 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Список городов</title>
+<title>Список поездов</title>
 {% endblock %}
 {% block content %}
 <div class="row">
-    <h1 class="text-center my-2">Список городов</h1>
+    <h1 class="text-center my-2">Список поездов</h1>
     <div class="col-md-8 mx-auto my-2">
-        <table class="table table-striped">
-        {% for city in page_obj %}
-            <tr>
-                <td>
-                    <a href="{% url 'cities:detail' pk=city.pk %}">{{ city.name }}</a>
-                </td>
-                <td>
-                    <a href="{% url 'cities:update' pk=city.pk %}">
-                        <button type="submit" class="btn btn-outline-primary btn-sm">Редактировать</button>
-                    </a>
-                </td>
-                <td>
-                    <a href="{% url 'cities:delete' pk=city.pk %}">
-                        <button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
-                    </a>
-                </td>
-            </tr>
-        {% endfor %}
+        <table class="table table-striped text-center" >
+            <thead>
+                <tr>
+                  <th scope="col">Поезд</th>
+                  <th scope="col">Откуда</th>
+                  <th scope="col">Куда</th>
+                  <th scope="col">Время в пути</th>
+                  <th scope="col">Действие</th>
+                </tr>
+              </thead>
+            <tbody>
+                {% for train in page_obj %}
+                    <tr>
+                        <td><a href="{% url 'trains:detail' pk=train.pk %}">{{ train.name }}</a></td>
+                        <td>{{ train.from_city }}</td>
+                        <td>{{ train.to_city }}</td>
+                        <td>{{ train.travel_time }} ч.</td>
+                        <td>
+                            <a href="{% url 'trains:update' pk=train.pk %}">
+                                <button type="submit" class="btn btn-outline-primary btn-sm">Редактировать</button>
+                            </a>
+                            <a href="{% url 'trains:delete' pk=train.pk %}">
+                                <button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center">
@@ -65,8 +75,8 @@
 </div>
 <div class="row">
     <div class="col-md-8 mx-auto my-4">
-        <a href="{% url 'cities:create' %}">
-            <button type="submit" class="btn btn-outline-primary">Добавить город</button>
+        <a href="{% url 'trains:create' %}">
+            <button type="submit" class="btn btn-outline-primary">Добавить поезд</button>
         </a>
     </div>
 </div>
