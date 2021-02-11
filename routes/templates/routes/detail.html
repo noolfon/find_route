@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
-{% block title %}Маршрут{% endblock %}
+{% block title %}
+<title>Маршрут</title>
+{% endblock %}
 
 {% block content %}
-<h1>Маршрут </h1>
+<h1 class="text-center">Маршрут</h1>
 <div class="row ">
     <div class="col-md-10 mx-auto my-2">
         <table class="table table-striped">
@@ -28,16 +30,14 @@
                 </td>
                 <td>
                     {% if user.is_authenticated%}
-                    <a href="{% url 'delete' pk=object.pk%}">
+                    <a href="{% url 'routes:delete' pk=object.pk%}">
                         <button type="submit" class="btn btn-danger">Удалить</button>
                     </a>
                     {% endif %} &nbsp;
                 </td>
-
             </tr>
-
-
         </table>
     </div>
 </div>
 {% endblock %}
+

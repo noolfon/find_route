@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -22,7 +23,7 @@ __all__ = (
 #     return render(request, 'trains/home.html', {'trains': qs, 'form': form})
 
 class TrainListView(ListView):
-    paginate_by = 5
+    paginate_by = 10
     model = Train
     template_name = 'trains/home.html'
 
@@ -39,7 +40,7 @@ class TrainDetailView(DetailView):
     template_name = 'trains/detail.html'
 
 
-class TrainCreateView(SuccessMessageMixin, CreateView):
+class TrainCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     # модель скоторой работает форма(куда добавит записи)
     model = Train
     # передадать форму из класса форм на страничку
@@ -52,7 +53,7 @@ class TrainCreateView(SuccessMessageMixin, CreateView):
     success_message = "Поезд успешно дабавлен!"
 
 
-class TrainUpdateView(SuccessMessageMixin, UpdateView):
+class TrainUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = Train
     form_class = TrainForm
     template_name = 'trains/update.html'
@@ -60,7 +61,7 @@ class TrainUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Поезд успешно изменен!"
 
 
-class TrainDeleteView(DeleteView):
+class TrainDeleteView(LoginRequiredMixin, DeleteView):
     model = Train
     form_class = TrainForm
     template_name = 'trains/delete.html'
@@ -68,8 +69,4 @@ class TrainDeleteView(DeleteView):
 
     def get(self, request, *args, **kwargs):
         messages.success(request, 'Поезд успешно удален!')
-        return self.post(request, *args, **kwargs )
-
-from django.shortcuts import render
-
-# Create your views here.
+        return self.post(request, *args, **kwargs)

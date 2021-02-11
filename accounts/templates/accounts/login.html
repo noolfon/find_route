@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Войти в систему</title>
+{% endblock %}
+
+{% block content %}
+<h1>Войти в систему</h1>
+
+{% include 'form.html' with button='войти' %}
+<br>
+<p><a href="{% url 'accounts:register' %}">Регистрация</a></p>
+{% endblock %}
+

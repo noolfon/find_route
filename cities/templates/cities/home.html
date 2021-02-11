@@ -13,6 +13,7 @@
                 <td>
                     <a href="{% url 'cities:detail' pk=city.pk %}">{{ city.name }}</a>
                 </td>
+                {% if user.is_authenticated%}
                 <td>
                     <a href="{% url 'cities:update' pk=city.pk %}">
                         <button type="submit" class="btn btn-outline-primary btn-sm">Редактировать</button>
@@ -23,6 +24,10 @@
                         <button type="submit" class="btn btn-outline-danger btn-sm">Удалить</button>
                     </a>
                 </td>
+                {% else %}
+                 <td>&nbsp;</td>
+                 <td>&nbsp;</td>
+                {% endif %}
             </tr>
         {% endfor %}
         </table>
@@ -63,12 +68,15 @@
         </nav>
     </div>
 </div>
+{% if user.is_authenticated%}
 <div class="row">
     <div class="col-md-8 mx-auto my-4">
+
         <a href="{% url 'cities:create' %}">
             <button type="submit" class="btn btn-outline-primary">Добавить город</button>
         </a>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 

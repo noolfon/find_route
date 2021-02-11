@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -12,17 +13,8 @@ __all__ = (
 )
 
 
-# def home(request):
-#     if request.POST:
-#         form = CityForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#     form = CityForm()
-#     qs = City.objects.all()
-#     return render(request, 'cities/home.html', {'cities': qs, 'form': form})
-
 class CityListView(ListView):
-    paginate_by = 5
+    paginate_by = 10
     model = City
     template_name = 'cities/home.html'
 
@@ -39,7 +31,7 @@ class CityDetailView(DetailView):
     template_name = 'cities/detail.html'
 
 
-class CityCreateView(SuccessMessageMixin, CreateView):
+class CityCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     # модель скоторой работает форма(куда добавит записи)
     model = City
     # передадать форму из класса форм на страничку
@@ -52,7 +44,7 @@ class CityCreateView(SuccessMessageMixin, CreateView):
     success_message = "Город успешно дабавлен!"
 
 
-class CityUpdateView(SuccessMessageMixin, UpdateView):
+class CityUpdateView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
@@ -60,7 +52,7 @@ class CityUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "Город успешно изменен!"
 
 
-class CityDeleteView(DeleteView):
+class CityDeleteView(LoginRequiredMixin, DeleteView):
     model = City
     form_class = CityForm
     template_name = 'cities/delete.html'
